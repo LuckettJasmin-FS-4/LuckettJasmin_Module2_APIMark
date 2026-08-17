@@ -1,60 +1,92 @@
-# Module Two API - Template Marketplace
+# Module Two API – Template Marketplace
 
 ## Student
 
 **Jasmin Luckett**
 
-## Project Overview
+---
 
-This project is a RESTful API built with **Node.js**, **Express**, **MongoDB**, and **Mongoose**. The API manages a digital template marketplace using two related collections:
+# Project Overview
 
-* **Templates**
-* **Customers**
+This project is a RESTful API built with **Node.js**, **Express**, **MongoDB**, and **Mongoose**.
 
-The project demonstrates full CRUD (Create, Read, Update, Delete) functionality while using MongoDB as the database.
+The API simulates a digital **Template Marketplace** where customers can purchase downloadable templates.
+
+The project demonstrates complete CRUD (Create, Read, Update, Delete) functionality using MongoDB and Mongoose.
 
 ---
 
-## Technologies Used
+# Technologies Used
 
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* Postman
-* Nodemon
-* Dotenv
-* CORS
+- Node.js
+- Express.js
+- MongoDB
+- MongoDB Compass
+- Mongoose
+- Postman
+- Nodemon
+- dotenv
 
 ---
 
-## Database Collections
+# Project Structure
 
-### Template
+```
+module-two-api/
+│
+├── config/
+│   └── db.js
+│
+├── controllers/
+│   ├── templateController.js
+│   └── customerController.js
+│
+├── models/
+│   ├── Template.js
+│   └── Customer.js
+│
+├── routes/
+│   ├── templateRoutes.js
+│   └── customerRoutes.js
+│
+├── server.js
+├── package.json
+├── package-lock.json
+├── .env
+├── .gitignore
+├── README.md
+└── Module2_Template_Integration_Tests.postman_collection.json
+```
 
-The Template collection stores information about digital templates available for purchase.
+---
+
+# Database Collections
+
+## Templates
+
+Stores information about digital templates.
 
 Properties:
 
-* name (String)
-* category (String)
-* price (Number)
-* isPremium (Boolean)
+- name (String)
+- category (String)
+- price (Number)
+- isPremium (Boolean)
 
 ---
 
-### Customer
+## Customers
 
-The Customer collection stores customer information.
+Stores customer information.
 
 Properties:
 
-* customerName (String)
-* email (String)
-* purchaseDate (Date)
-* template (ObjectId Reference)
+- customerName (String)
+- email (String)
+- purchaseDate (Date)
+- template (ObjectId reference)
 
-Each customer references a template using a MongoDB ObjectId, creating a **"has a" relationship**.
+The Customer model has a relationship with the Template model through a MongoDB ObjectId reference.
 
 ---
 
@@ -62,126 +94,89 @@ Each customer references a template using a MongoDB ObjectId, creating a **"has 
 
 ## Templates
 
-| Method | Endpoint           | Description            |
-| ------ | ------------------ | ---------------------- |
-| GET    | /api/templates     | Get all templates      |
-| GET    | /api/templates/:id | Get one template by ID |
-| POST   | /api/templates     | Create a template      |
-| PUT    | /api/templates/:id | Update a template      |
-| DELETE | /api/templates/:id | Delete a template      |
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | /api/templates | Get all templates |
+| GET | /api/templates/:id | Get template by ID |
+| POST | /api/templates | Create template |
+| PUT | /api/templates/:id | Update template |
+| DELETE | /api/templates/:id | Delete template |
 
 ---
 
 ## Customers
 
-| Method | Endpoint           | Description            |
-| ------ | ------------------ | ---------------------- |
-| GET    | /api/customers     | Get all customers      |
-| GET    | /api/customers/:id | Get one customer by ID |
-| POST   | /api/customers     | Create a customer      |
-| PUT    | /api/customers/:id | Update a customer      |
-| DELETE | /api/customers/:id | Delete a customer      |
-
----
-
-# Installation
-
-Install project dependencies:
-
-```bash
-npm install
-```
-
-Install Nodemon:
-
-```bash
-npm install --save-dev nodemon
-```
-
----
-
-# Environment Variables
-
-Create a `.env` file in the root directory.
-
-Example:
-
-```text
-MONGO_URI=mongodb://127.0.0.1:27017/templateMarketplace
-PORT=3000
-```
-
----
-
-# Running the Project
-
-Start the application:
-
-```bash
-npm run dev
-```
-
-The terminal should display:
-
-```text
-Server running on port 3000
-MongoDB Connected
-```
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | /api/customers | Get all customers |
+| GET | /api/customers/:id | Get customer by ID |
+| POST | /api/customers | Create customer |
+| PUT | /api/customers/:id | Update customer |
+| DELETE | /api/customers/:id | Delete customer |
 
 ---
 
 # Testing
 
-All endpoints were tested using **Postman**.
+All API endpoints were tested using **Postman**.
 
-CRUD operations completed for:
+Integration tests include:
 
-* Templates
-* Customers
+- POST
+- GET All
+- GET by ID
+- PUT by ID
+- DELETE by ID
 
-Operations tested:
+Each endpoint contains three meaningful tests that verify:
 
-* Create (POST)
-* Read All (GET)
-* Read by ID (GET)
-* Update (PUT)
-* Delete (DELETE)
+- HTTP Status Codes
+- Returned JSON data
+- Response payload values
+
+**15 Integration Tests Passed**
 
 ---
 
-# Project Structure
+# MongoDB
 
-```text
-module-two-api/
-│
-├── config/
-│   └── db.js
-│
-├── controllers/
-│   ├── customerController.js
-│   └── templateController.js
-│
-├── models/
-│   ├── Customer.js
-│   └── Template.js
-│
-├── routes/
-│   ├── customerRoutes.js
-│   └── templateRoutes.js
-│
-├── .env
-├── .gitignore
-├── package.json
-├── package-lock.json
-└── server.js
+MongoDB is connected using Mongoose.
+
+The application stores all data inside the **templateMarketplace** database.
+
+Collections:
+
+- templates
+- customers
+
+---
+
+# Running the Project
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the server:
+
+```bash
+npm run dev
+```
+
+Server:
+
+```
+http://localhost:3000
 ```
 
 ---
 
 # Author
 
-**Jasmin Luckett**
+Jasmin Luckett
 
 Full Sail University
 
-Web Development Program
+Node.js Module Two Assignment
