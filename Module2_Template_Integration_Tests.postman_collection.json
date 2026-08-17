@@ -1,0 +1,286 @@
+{
+  "info": {
+    "_postman_id": "b95e5bf1-6782-44c3-bf24-46d129c620bf",
+    "name": "Module 2 Template Integration Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55528496",
+    "_collection_link": "https://go.postman.co/collection/55528496-b95e5bf1-6782-44c3-bf24-46d129c620bf?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "POST Create Template",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Created template has correct name\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.name).to.eql(\"Integration Test Template\");",
+              "});",
+              "",
+              "pm.test(\"Created template has an ID\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"_id\");",
+              "",
+              "    pm.collectionVariables.set(\"templateId\", jsonData._id);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Integration Test Template\",\n  \"category\": \"Testing\",\n  \"price\": 14.99,\n  \"isPremium\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/templates",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "templates"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET All Templates",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is an array\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an(\"array\");",
+              "});",
+              "",
+              "pm.test(\"Templates contain required properties\", function () {",
+              "    const jsonData = pm.response.json();",
+              "",
+              "    pm.expect(jsonData.length).to.be.above(0);",
+              "    pm.expect(jsonData[0]).to.have.property(\"name\");",
+              "    pm.expect(jsonData[0]).to.have.property(\"category\");",
+              "    pm.expect(jsonData[0]).to.have.property(\"price\");",
+              "    pm.expect(jsonData[0]).to.have.property(\"isPremium\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/templates",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "templates"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Template By ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Returned ID matches created template\", function () {",
+              "    const jsonData = pm.response.json();",
+              "",
+              "    pm.expect(jsonData._id).to.eql(",
+              "        pm.collectionVariables.get(\"templateId\")",
+              "    );",
+              "});",
+              "",
+              "pm.test(\"Returned template has expected data\", function () {",
+              "    const jsonData = pm.response.json();",
+              "",
+              "    pm.expect(jsonData.name).to.eql(\"Integration Test Template\");",
+              "    pm.expect(jsonData.category).to.eql(\"Testing\");",
+              "    pm.expect(jsonData.price).to.eql(14.99);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/templates/{{templateId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "templates",
+            "{{templateId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Update Template",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Template name was updated\", function () {",
+              "    const jsonData = pm.response.json();",
+              "",
+              "    pm.expect(jsonData.name).to.eql(",
+              "        \"Updated Integration Template\"",
+              "    );",
+              "});",
+              "",
+              "pm.test(\"Template values were updated\", function () {",
+              "    const jsonData = pm.response.json();",
+              "",
+              "    pm.expect(jsonData.category).to.eql(\"Updated Testing\");",
+              "    pm.expect(jsonData.price).to.eql(19.99);",
+              "    pm.expect(jsonData.isPremium).to.eql(false);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Integration Template\",\n  \"category\": \"Updated Testing\",\n  \"price\": 19.99,\n  \"isPremium\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/templates/{{templateId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "templates",
+            "{{templateId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE Template By ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Delete returns success message\", function () {",
+              "    const jsonData = pm.response.json();",
+              "",
+              "    pm.expect(jsonData.message).to.eql(",
+              "        \"Template deleted successfully.\"",
+              "    );",
+              "});",
+              "",
+              "pm.test(\"Delete response contains a message\", function () {",
+              "    const jsonData = pm.response.json();",
+              "",
+              "    pm.expect(jsonData).to.have.property(\"message\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/templates/{{templateId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "templates",
+            "{{templateId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "templateId",
+      "value": ""
+    }
+  ]
+}
