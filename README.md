@@ -1,27 +1,27 @@
-# Module Two API – Template Marketplace
+# Module Two API - Template Marketplace
 
 ## Student
 
-**Jasmin Luckett**
+Jasmin Luckett
 
 ---
 
-# Project Overview
+## Project Overview
 
-This project is a RESTful API built with **Node.js**, **Express**, **MongoDB**, and **Mongoose**.
+This project is a REST API built with Node.js, Express, MongoDB, and Mongoose. It manages a Template Marketplace using two related collections:
 
-The API simulates a digital **Template Marketplace** where customers can purchase downloadable templates.
+- Templates
+- Customers
 
-The project demonstrates complete CRUD (Create, Read, Update, Delete) functionality using MongoDB and Mongoose.
+Customers have a relationship with Templates through a MongoDB ObjectId reference.
 
 ---
 
-# Technologies Used
+## Technologies Used
 
 - Node.js
 - Express.js
 - MongoDB
-- MongoDB Compass
 - Mongoose
 - Postman
 - Nodemon
@@ -29,42 +29,9 @@ The project demonstrates complete CRUD (Create, Read, Update, Delete) functional
 
 ---
 
-# Project Structure
+## Database Models
 
-```
-module-two-api/
-│
-├── config/
-│   └── db.js
-│
-├── controllers/
-│   ├── templateController.js
-│   └── customerController.js
-│
-├── models/
-│   ├── Template.js
-│   └── Customer.js
-│
-├── routes/
-│   ├── templateRoutes.js
-│   └── customerRoutes.js
-│
-├── server.js
-├── package.json
-├── package-lock.json
-├── .env
-├── .gitignore
-├── README.md
-└── Module2_Template_Integration_Tests.postman_collection.json
-```
-
----
-
-# Database Collections
-
-## Templates
-
-Stores information about digital templates.
+### Template
 
 Properties:
 
@@ -73,85 +40,111 @@ Properties:
 - price (Number)
 - isPremium (Boolean)
 
----
-
-## Customers
-
-Stores customer information.
+### Customer
 
 Properties:
 
 - customerName (String)
 - email (String)
 - purchaseDate (Date)
-- template (ObjectId reference)
-
-The Customer model has a relationship with the Template model through a MongoDB ObjectId reference.
+- template (ObjectId reference to Template)
 
 ---
 
-# API Endpoints
+## Relationship
 
-## Templates
+A Customer purchases one Template.
+
+The relationship is created using:
+
+```javascript
+template: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Template"
+}
+```
+
+Mongoose's `populate()` method is used to return the full Template information when retrieving Customers.
+
+---
+
+## API Endpoints
+
+### Templates
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
-| GET | /api/templates | Get all templates |
-| GET | /api/templates/:id | Get template by ID |
-| POST | /api/templates | Create template |
-| PUT | /api/templates/:id | Update template |
-| DELETE | /api/templates/:id | Delete template |
+| POST | /api/templates | Create Template |
+| GET | /api/templates | Get All Templates |
+| GET | /api/templates/:id | Get Template by ID |
+| PUT | /api/templates/:id | Update Template |
+| DELETE | /api/templates/:id | Delete Template |
 
 ---
 
-## Customers
+### Customers
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
-| GET | /api/customers | Get all customers |
-| GET | /api/customers/:id | Get customer by ID |
-| POST | /api/customers | Create customer |
-| PUT | /api/customers/:id | Update customer |
-| DELETE | /api/customers/:id | Delete customer |
+| POST | /api/customers | Create Customer |
+| GET | /api/customers | Get All Customers |
+| GET | /api/customers/:id | Get Customer by ID |
+| PUT | /api/customers/:id | Update Customer |
+| DELETE | /api/customers/:id | Delete Customer |
 
 ---
 
-# Testing
+## Features
 
-All API endpoints were tested using **Postman**.
-
-Integration tests include:
-
-- POST
-- GET All
-- GET by ID
-- PUT by ID
-- DELETE by ID
-
-Each endpoint contains three meaningful tests that verify:
-
-- HTTP Status Codes
-- Returned JSON data
-- Response payload values
-
-**15 Integration Tests Passed**
+- Full CRUD operations for both collections
+- MongoDB Atlas database
+- Mongoose schemas and validation
+- Relationship using ObjectId
+- populate() to display Template information inside Customer documents
+- select() used to remove the __v field from responses
+- Centralized messages module for reusable response messages
+- Error handling with proper HTTP status codes
+- Object existence validation before updating or deleting
 
 ---
 
-# MongoDB
+## Testing
 
-MongoDB is connected using Mongoose.
+All endpoints were tested using Postman.
 
-The application stores all data inside the **templateMarketplace** database.
+Completed testing includes:
 
-Collections:
+### Templates
 
-- templates
-- customers
+- Create
+- Get All
+- Get by ID
+- Update
+- Delete
+
+### Customers
+
+- Create
+- Get All
+- Get by ID
+- Update
+- Delete
+
+Integration tests were created in Postman for all CRUD operations.
 
 ---
 
-# Running the Project
+## MongoDB
+
+The API connects successfully to MongoDB using Mongoose.
+
+Customers reference Templates using MongoDB ObjectIds.
+
+MongoDB Compass was used to verify stored documents and relationships.
+
+---
+
+## Running the Project
 
 Install dependencies:
 
@@ -173,10 +166,10 @@ http://localhost:3000
 
 ---
 
-# Author
+## Author
 
 Jasmin Luckett
 
 Full Sail University
 
-Node.js Module Two Assignment
+Web Development Program
