@@ -487,6 +487,73 @@ All requests returned successful `200 OK` responses.
 - Postman testing
 
 ---
+## Module 3.6 – Unit Testing the API
+
+### Overview
+
+For this assignment, I added Jest unit tests to test the query operator functionality of the Templates API. The tests verify filtering and field selection, pagination, and sorting.
+
+The Template model is mocked using Jest so the unit tests can run without depending on the live MongoDB database.
+
+### Unit Tests
+
+The test suite contains **6 tests** organized into three groups.
+
+#### Query Operators and Select
+
+* Tests filtering templates using `minPrice` and `maxPrice`.
+* Tests excluding fields using the `exclude` query string.
+* Verifies that `__v` and `isPremium` can be excluded from the returned data.
+
+#### Pagination
+
+* Tests the `skip()` and `limit()` functionality.
+* Verifies the correct skip amount for page 2 with a limit of 2.
+* Verifies the correct skip amount for page 3 with a limit of 5.
+
+#### Sorting
+
+* Tests sorting templates by price in ascending order using `sort=price`.
+* Tests sorting templates by price in descending order using `sort=-price`.
+
+### Mocking
+
+The Template model is mocked with Jest:
+
+`jest.mock("../models/Template");`
+
+Mocking allows the controller logic to be tested without making requests to the actual MongoDB database.
+
+### Running the Tests
+
+Run all Jest tests with:
+
+`npm test`
+
+The completed test suite currently produces:
+
+* **Test Suites:** 1 passed, 1 total
+* **Tests:** 6 passed, 6 total
+* **Snapshots:** 0 total
+
+### Technologies Used
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* Jest
+* Supertest
+
+### Assignment Requirements Completed
+
+* Query operator testing
+* Select/exclude field testing
+* Pagination testing with `skip()` and `limit()`
+* Ascending sort testing
+* Descending sort testing
+* Mocked model testing
+* Six passing Jest unit tests
 
 # Author
 
