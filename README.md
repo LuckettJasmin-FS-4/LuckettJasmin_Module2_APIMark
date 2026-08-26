@@ -241,7 +241,7 @@ Updates an existing customer.
 Deletes a customer.
 
 ---
-
+Module 3.4 - API Query Data from MongoD
 # Module 3.4 - MongoDB Query Features
 
 Module 3.4 adds filtering mechanics to both GET ALL endpoints using query strings.
@@ -555,8 +555,227 @@ The completed test suite currently produces:
 * Mocked model testing
 * Six passing Jest unit tests
 
+# Module 4 - ReactJS and NodeJS Full-Stack Application
+
+## Template Marketplace
+
+This project is a full-stack Template Marketplace application created using ReactJS, NodeJS, Express, MongoDB, Mongoose, and Axios.
+
+The application builds on the Template and Customer collections created in previous assignments. The React frontend communicates with the NodeJS/Express backend API and allows users to view and modify information stored in MongoDB.
+
+## Technologies Used
+
+### Frontend
+
+* ReactJS
+* Vite
+* Axios
+* JavaScript
+* CSS
+
+### Backend
+
+* NodeJS
+* Express
+* MongoDB
+* Mongoose
+* CORS
+* dotenv
+
+### Development Tools
+
+* Visual Studio Code
+* MongoDB
+* Postman
+* Git
+* GitHub
+
+## Application Features
+
+### Templates
+
+The Template Marketplace supports full CRUD functionality.
+
+* Create new templates
+* Read and display templates from MongoDB
+* Update existing templates
+* Delete templates
+* Navigate template records using pagination
+* Mark templates as premium or non-premium
+
+Each template contains:
+
+* Template name
+* Category
+* Price
+* Premium status
+
+### Customers
+
+The Customer section also supports full CRUD functionality.
+
+* Create new customers
+* Read and display customers
+* Update existing customers
+* Delete customers
+* Associate a customer with a template
+* Display customer purchase information
+
+Demo customer information uses fictional names and `example.com` email addresses.
+
+## Full-Stack Architecture
+
+The application uses the following structure:
+
+**React Client → Axios → NodeJS/Express API → MongoDB**
+
+React manages the user interface and application state.
+
+Axios sends HTTP requests from the React client to the Express API.
+
+Express handles the API routes and communicates with MongoDB through Mongoose.
+
+MongoDB stores the Template and Customer collections.
+
+## API Endpoints
+
+### Templates
+
+* `GET /api/templates` - Get templates
+* `GET /api/templates/:id` - Get a template by ID
+* `POST /api/templates` - Create a template
+* `PUT /api/templates/:id` - Update a template
+* `DELETE /api/templates/:id` - Delete a template
+
+The Templates API also supports query operators, field selection, sorting, and pagination.
+
+### Customers
+
+* `GET /api/customers` - Get customers
+* `GET /api/customers/:id` - Get a customer by ID
+* `POST /api/customers` - Create a customer
+* `PUT /api/customers/:id` - Update a customer
+* `DELETE /api/customers/:id` - Delete a customer
+
+The Customers API also supports query operators, field selection, sorting, pagination, and template population.
+
+## React State Management
+
+React's `useState` hook is used to manage:
+
+* Template data
+* Customer data
+* Form input
+* Edit state
+* Pagination
+* Total pages
+
+The `useEffect` hook is used to retrieve data from the backend when the application loads and when the template page changes.
+
+After Create, Update, or Delete operations, the client retrieves the updated information from the API so the interface reflects the current MongoDB data.
+
+## Project Structure
+
+```text
+module-two-api/
+│
+├── client/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── style.css
+│   ├── index.html
+│   └── package.json
+│
+├── controllers/
+│   ├── templateController.js
+│   └── customerController.js
+│
+├── models/
+│   ├── Template.js
+│   └── Customer.js
+│
+├── routes/
+│   ├── templateRoutes.js
+│   └── customerRoutes.js
+│
+├── tests/
+├── server.js
+├── package.json
+└── README.md
+```
+
+## Running the Application
+
+### Start the Backend
+
+From the main project directory:
+
+```bash
+npm install
+npm run dev
+```
+
+The NodeJS/Express server runs on:
+
+```text
+http://localhost:3000
+```
+
+### Start the React Client
+
+Open another terminal and navigate to the client:
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+The React application runs on:
+
+```text
+http://localhost:5173
+```
+
+Both the backend and frontend must be running for the full-stack application to work.
+
+## Database
+
+MongoDB is used to store the application's Template and Customer collections.
+
+Mongoose is used to define the models and communicate between the Express backend and MongoDB.
+
+The Customer collection references the Template collection using a Mongoose ObjectId relationship.
+
+## Assignment Requirements Demonstrated
+
+This project demonstrates:
+
+* ReactJS client development
+* NodeJS and Express server development
+* MongoDB database integration
+* Axios API integration
+* React state management
+* Modular project organization
+* Full CRUD functionality
+* Multiple MongoDB collections
+* Mongoose relationships
+* Pagination
+* Query operators
+* Sorting
+* Field selection
+* Error handling
+
+## Author
+
+Jasmin Luckett
+
+Full Sail University
+Module 4 - ReactJS and NodeJS Assignment
+
+
 # Author
 
 **Jasmin Luckett**
 
-Module 3.4 - API Query Data from MongoDB
